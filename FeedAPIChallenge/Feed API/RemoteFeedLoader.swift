@@ -28,7 +28,8 @@ public final class RemoteFeedLoader: FeedLoader {
 					return
 				}
 				do {
-					let feedImages = try decoder.decode([FeedImageRepresentation].self, from: data)
+					let feedImages = try decoder.decode(FeedImageResponse.self, from: data)
+						.items
 						.map { $0.feedImage }
 
 					completion(.success(feedImages))
@@ -39,6 +40,10 @@ public final class RemoteFeedLoader: FeedLoader {
 				completion(.failure(Error.connectivity))
 			}
 		}
+	}
+
+	private struct FeedImageResponse: Codable {
+		let items: [FeedImageRepresentation]
 	}
 
 	private struct FeedImageRepresentation: Codable {

@@ -24,12 +24,13 @@ public final class RemoteFeedLoader: FeedLoader {
 
 			switch result {
 			case let .success((data, httpResponse)):
-				let decoder = JSONDecoder()
 				guard httpResponse.statusCode == 200 else {
 					completion(.failure(Error.invalidData))
 					return
 				}
+
 				do {
+					let decoder = JSONDecoder()
 					let feedImages = try decoder.decode(FeedImageResponse.self, from: data)
 						.items
 						.map { $0.feedImage }
@@ -38,6 +39,7 @@ public final class RemoteFeedLoader: FeedLoader {
 				} catch {
 					completion(.failure(Error.invalidData))
 				}
+
 			case .failure:
 				completion(.failure(Error.connectivity))
 			}
@@ -61,7 +63,7 @@ public final class RemoteFeedLoader: FeedLoader {
 			case url = "image_url"
 		}
 
-		public init(id: UUID, description: String?, location: String?, url: URL) {
+		private init(id: UUID, description: String?, location: String?, url: URL) {
 			self.id = id
 			self.description = description
 			self.location = location

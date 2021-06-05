@@ -35,8 +35,8 @@ public final class RemoteFeedLoader: FeedLoader {
 				} catch {
 					completion(.failure(Error.invalidData))
 				}
-			case let .failure(error):
-				completion(.failure(error))
+			case .failure:
+				completion(.failure(Error.connectivity))
 			}
 		}
 	}

@@ -44,11 +44,11 @@ public final class RemoteFeedLoader: FeedLoader {
 		}
 	}
 
-	private struct FeedImageResponse: Codable {
+	private struct FeedImageResponse: Decodable {
 		let items: [FeedImageRepresentation]
 	}
 
-	private struct FeedImageRepresentation: Codable {
+	private struct FeedImageRepresentation: Decodable {
 		let id: UUID
 		let description: String?
 		let location: String?

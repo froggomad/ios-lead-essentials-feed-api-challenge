@@ -31,13 +31,13 @@ public final class RemoteFeedLoader: FeedLoader {
 					completion(.failure(Error.invalidData))
 					return
 				}
-				
+
 				let feedImages = feedImageResponse
 					.items
 					.map { $0.feedImage }
-				
+
 				completion(.success(feedImages))
-				
+
 			case .failure:
 				completion(.failure(Error.connectivity))
 			}
